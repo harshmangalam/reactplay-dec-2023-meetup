@@ -39,5 +39,10 @@
     "undici": "^5.26.0",
     "vite": "^5.0.6",
     "vite-tsconfig-paths": "^4.2.1"
+  },
+  "dependencies": {
+    "@libsql/client": "0.4.0-pre.5",
+    "@prisma/adapter-libsql": "^5.7.0",
+    "@prisma/client": "^5.7.0"
   }
 }
