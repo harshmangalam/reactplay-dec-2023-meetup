@@ -1,5 +1,6 @@
 import { component$, Slot, useSignal } from "@builder.io/qwik";
-import { Link, routeAction$, routeLoader$ } from "@builder.io/qwik-city";
+import { routeLoader$ } from "@builder.io/qwik-city";
+import { AddContact } from "~/components/add-contact";
 import { Sidebar } from "~/components/sidebar";
 import { MenuIcon } from "~/icons/menu";
 import { prisma } from "~/lib/prisma";
@@ -34,15 +35,10 @@ export default component$(() => {
           <MenuIcon />
         </button>
       </div>
-      <main class="flex-1 py-12">
+      <main class="flex-1">
         <Slot />
+        <AddContact />
       </main>
-
-      <div class="absolute bottom-12 right-6">
-        <Link href="/contacts/new" class="btn btn-primary">
-          New
-        </Link>
-      </div>
     </div>
   );
 });
