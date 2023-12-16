@@ -1,17 +1,61 @@
-import { component$, Slot } from "@builder.io/qwik";
-import type { RequestHandler } from "@builder.io/qwik-city";
+import { component$, Slot, useSignal } from "@builder.io/qwik";
+import { routeAction$, routeLoader$, z, zod$ } from "@builder.io/qwik-city";
+import { Sidebar } from "~/components/sidebar";
+import { MenuIcon } from "~/icons/menu";
+import { prisma } from "~/lib/prisma";
 
-export const onGet: RequestHandler = async ({ cacheControl }) => {
-  // Control caching for this request for best performance and to reduce hosting costs:
-  // https://qwik.builder.io/docs/caching/
-  cacheControl({
-    // Always serve a cached response by default, up to a week stale
-    staleWhileRevalidate: 60 * 60 * 24 * 7,
-    // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
-    maxAge: 5,
+export const useContacts = routeLoader$(async ({ url }) => {
+  const search = url.searchParams.get("search");
+
+  const contacts = await prisma.contact.findMany({
+    where: search?.trim().length
+      ? {
+          OR: [
+            {
+              firstName: {
+                contains: search,
+              },
+            },
+            {
+              lastName: {
+                contains: search,
+              },
+            },
+          ],
+        }
+      : undefined,
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+    },
   });
-};
 
+  return contacts;
+});
+
+export const useSearch = routeAction$(
+  (formData, { redirect }) => {
+    throw redirect(303, `/?search=${formData.search}`);
+  },
+  zod$({
+    search: z.string().min(1),
+  })
+);
 export default component$(() => {
-  return <Slot />;
+  const contactsSignal = useContacts();
+  const drawer = useSignal(false);
+  return (
+    <div class="flex">
+      <Sidebar contacts={contactsSignal.value} drawer={drawer} />
+      <div class="block md:hidden absolute top-4 left-4">
+        <button onClick$={() => (drawer.value = true)}>
+          <MenuIcon />
+        </button>
+      </div>
+      <main class="flex-1">
+        <Slot />
+      </main>
+    </div>
+  );
 });
