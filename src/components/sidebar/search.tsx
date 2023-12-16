@@ -1,24 +1,20 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
-import { useSearch } from "~/routes/layout";
+import { component$ } from "@builder.io/qwik";
 import { TextInput } from "../ui/text-input";
+import { Form } from "@builder.io/qwik-city";
+import { Button } from "../ui/button";
 
 export const Search = component$(() => {
-  const actionSig = useSearch();
-  const inputSig = useSignal("");
-
-  const handleSearch = $(() => {
-    actionSig.submit({
-      search: inputSig.value,
-    });
-  });
   return (
-    <TextInput
-      type="search"
-      aria-label="Search"
-      name="search"
-      placeholder={"Search..."}
-      bind:value={inputSig}
-      onInput$={handleSearch}
-    />
+    <Form class="flex items-center gap-2">
+      <TextInput
+        type="search"
+        aria-label="Search"
+        name="search"
+        placeholder={"Search..."}
+      />
+      <Button colorScheme={"btn-primary"} type={"submit"}>
+        Search
+      </Button>
+    </Form>
   );
 });

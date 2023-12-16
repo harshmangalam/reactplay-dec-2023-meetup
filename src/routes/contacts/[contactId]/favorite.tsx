@@ -3,25 +3,25 @@ import { useFavoriteContact } from ".";
 import { Form } from "@builder.io/qwik-city";
 import { StarIcon } from "~/icons/star";
 import { StarSolidIcon } from "~/icons/star-solid";
+import { Button } from "~/components/ui/button";
 
 export const Favorite = component$(({ favorite }: { favorite: boolean }) => {
-  const action = useFavoriteContact();
+  const actionSig = useFavoriteContact();
   return (
-    <Form action={action}>
-      <button
-        disabled={action.isRunning}
-        class="disabled:cursor-wait disabled:text-gray-500"
-        name="favorite"
+    <Form action={actionSig}>
+      <Button
+        circle
+        loading={actionSig.isRunning}
         aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
       >
         {favorite ? (
-          <span class="text-orange-500">
+          <span class="text-warning">
             <StarSolidIcon />
           </span>
         ) : (
           <StarIcon />
         )}
-      </button>
+      </Button>
     </Form>
   );
 });

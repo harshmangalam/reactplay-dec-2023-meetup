@@ -1,5 +1,5 @@
 import { component$, Slot, useSignal } from "@builder.io/qwik";
-import { routeAction$, routeLoader$, z, zod$ } from "@builder.io/qwik-city";
+import { Link, routeAction$, routeLoader$ } from "@builder.io/qwik-city";
 import { Sidebar } from "~/components/sidebar";
 import { MenuIcon } from "~/icons/menu";
 import { prisma } from "~/lib/prisma";
@@ -24,15 +24,6 @@ export const useContacts = routeLoader$(async ({ url }) => {
 
   return contacts;
 });
-
-export const useSearch = routeAction$(
-  (formData, { redirect }) => {
-    throw redirect(303, `/?search=${formData.search}`);
-  },
-  zod$({
-    search: z.string().min(1),
-  }),
-);
 export default component$(() => {
   const drawer = useSignal(false);
   return (
@@ -46,6 +37,12 @@ export default component$(() => {
       <main class="flex-1 py-12">
         <Slot />
       </main>
+
+      <div class="absolute bottom-12 right-6">
+        <Link href="/contacts/new" class="btn btn-primary">
+          New
+        </Link>
+      </div>
     </div>
   );
 });

@@ -1,14 +1,19 @@
 import { component$ } from "@builder.io/qwik";
 import { Form } from "@builder.io/qwik-city";
 import { useDeleteContact } from ".";
+import { Button } from "~/components/ui/button";
 
 export const DeleteContact = component$(() => {
-  const action = useDeleteContact();
+  const actionSig = useDeleteContact();
   return (
-    <Form action={action}>
-      <button disabled={action.isRunning} class="btn btn-error" type="submit">
+    <Form action={actionSig}>
+      <Button
+        loading={actionSig.isRunning}
+        colorScheme={"btn-error"}
+        type="submit"
+      >
         Delete
-      </button>
+      </Button>
     </Form>
   );
 });

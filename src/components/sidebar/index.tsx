@@ -16,9 +16,6 @@ export const Sidebar = component$(({ drawer }: { drawer: Signal<boolean> }) => {
     >
       <header class="z-10 flex items-center gap-2 px-4 py-4">
         <Search />
-        <Link href="/contacts/new" class="btn btn-primary">
-          New
-        </Link>
       </header>
 
       <section class="flex-1 overflow-y-auto">

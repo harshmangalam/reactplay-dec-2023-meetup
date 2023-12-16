@@ -42,19 +42,19 @@ export const useEditContact = routeAction$(
   }),
 );
 export default component$(() => {
-  const editSig = useEditContact();
+  const actionSig = useEditContact();
   const contactSig = useGetContact();
 
   return (
     <article class="card card-bordered mx-auto max-w-xl">
-      <Form class="card-body" action={editSig}>
+      <Form class="card-body" action={actionSig}>
         <header class="card-title">Edit {contactSig.value.name}</header>
         <div>
           <TextInput
             name="name"
             id="name"
             label="Full Name"
-            error={editSig.value?.fieldErrors.name}
+            error={actionSig.value?.fieldErrors.name}
             value={contactSig.value.name}
           />
           <TextInput
@@ -79,10 +79,14 @@ export default component$(() => {
         </div>
 
         <footer class="card-actions">
-          <Link class="btn btn-error" href={"/"}>
+          <Link class="btn btn-error" href={`/contacts/${contactSig.value.id}`}>
             Cancel
           </Link>
-          <Button type={"submit"} colorScheme={"btn-primary"}>
+          <Button
+            loading={actionSig.isRunning}
+            type={"submit"}
+            colorScheme={"btn-primary"}
+          >
             Edit
           </Button>
         </footer>

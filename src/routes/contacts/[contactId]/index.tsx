@@ -80,25 +80,27 @@ export default component$(() => {
               contact.value.avatar ||
               "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=996&t=st=1680856511~exp=1680857111~hmac=2ea5e2b237c5da1755e858ed01dd5d3d6e5638d3edcfa0e34c62dc5bc518435a"
             }
+            width={144}
+            height={144}
             alt={contact.value.name}
           />
         </div>
 
         <div class="flex flex-col justify-center space-y-2 md:justify-start">
           <div class="flex items-center justify-center gap-4 md:justify-start">
-            <h1 class="text-2xl font-bold">{contact.value?.name}</h1>
+            <h1 class="text-2xl font-bold">{contact.value.name}</h1>
             <Favorite favorite={contact.value.favorite} />
           </div>
           {contact.value.twitter && (
             <a
               href={`https://twitter.com/${contact.value.twitter}`}
               target="_blank"
-              class="text-xl text-blue-500"
+              class="link link-primary text-lg"
             >
               @{contact.value.twitter}
             </a>
           )}
-          <p class="text-gray-500">{contact.value.notes}</p>
+          <p class="text-base-content">{contact.value.notes}</p>
 
           <div class="flex items-center justify-center space-x-2 md:justify-start">
             <a
