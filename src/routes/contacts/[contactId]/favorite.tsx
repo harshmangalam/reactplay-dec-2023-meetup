@@ -1,8 +1,8 @@
 import { component$ } from "@builder.io/qwik";
 import { useFavoriteContact } from ".";
 import { Form } from "@builder.io/qwik-city";
-import { StarIcon } from "~/icons/star";
-import { StarSolidIcon } from "~/icons/star-solid";
+import StarIcon from "~/assets/icons/star.svg?jsx";
+import StarSolidIcon from "~/assets/icons/star-solid.svg?jsx";
 import { Button } from "~/components/ui/button";
 
 export const Favorite = component$(({ favorite }: { favorite: boolean }) => {

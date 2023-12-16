@@ -2,7 +2,7 @@ import { component$, Slot, useSignal } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { AddContact } from "~/components/add-contact";
 import { Sidebar } from "~/components/sidebar";
-import { MenuIcon } from "~/icons/menu";
+import MenuIcon from "~/assets/icons/menu.svg?jsx";
 import { prisma } from "~/lib/prisma";
 
 export const useContacts = routeLoader$(async ({ url }) => {

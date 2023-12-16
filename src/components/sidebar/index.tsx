@@ -1,6 +1,6 @@
 import { type Signal, component$ } from "@builder.io/qwik";
 import { Link, useLocation } from "@builder.io/qwik-city";
-import { ChevronLeftIcon } from "~/icons/chevron-left";
+import ChevronLeftIcon from "~/assets/icons/chevron-left.svg?jsx";
 import { useContacts } from "~/routes/layout";
 
 export const Sidebar = component$(({ drawer }: { drawer: Signal<boolean> }) => {
