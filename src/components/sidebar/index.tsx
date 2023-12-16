@@ -14,7 +14,7 @@ export const Sidebar = component$(({ drawer }: { drawer: Signal<boolean> }) => {
         !drawer.value ? "hidden md:flex" : ""
       } absolute z-10 flex h-screen w-full  flex-col  border-r border-base-300 bg-base-100 md:static md:max-w-xs`}
     >
-      <header class="z-10 flex items-center gap-2 px-4 py-2">
+      <header class="z-10 flex items-center gap-2 px-4 py-4">
         <Search />
         <Link href="/contacts/new" class="btn btn-primary">
           New

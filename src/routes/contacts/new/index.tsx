@@ -21,33 +21,33 @@ export const useAddContact = routeAction$(
   }),
 );
 export default component$(() => {
-  const contactSig = useAddContact();
+  const actionSig = useAddContact();
   return (
     <article class="card card-bordered mx-auto max-w-xl">
-      <Form class="card-body" action={contactSig}>
+      <Form class="card-body" action={actionSig}>
         <header class="card-title">New Contact</header>
         <div>
           <TextInput
             name="name"
             id="name"
             label="Full Name"
-            error={contactSig.value?.fieldErrors.name}
-            value={contactSig.formData?.get("name")}
+            error={actionSig.value?.fieldErrors.name}
+            value={actionSig.formData?.get("name")}
           />
           <TextInput
-            value={contactSig.formData?.get("twitter")}
+            value={actionSig.formData?.get("twitter")}
             name="twitter"
             id="twitter"
             label="Twitter handler"
           />
           <TextInput
-            value={contactSig.formData?.get("avatar")}
+            value={actionSig.formData?.get("avatar")}
             name="avatar"
             id="avatar"
             label="Avatar URL"
           />
           <Textarea
-            value={contactSig.formData?.get("notes")?.toString() ?? ""}
+            value={actionSig.formData?.get("notes")?.toString() ?? ""}
             name="notes"
             id="notes"
             label="Notes"
@@ -58,7 +58,11 @@ export default component$(() => {
           <Link class="btn btn-error" href={"/"}>
             Cancel
           </Link>
-          <Button type={"submit"} colorScheme={"btn-primary"}>
+          <Button
+            loading={actionSig.isRunning}
+            type={"submit"}
+            colorScheme={"btn-primary"}
+          >
             Create
           </Button>
         </footer>
