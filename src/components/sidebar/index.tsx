@@ -12,7 +12,7 @@ export const Sidebar = component$(({ drawer }: { drawer: Signal<boolean> }) => {
     <aside
       class={`${
         !drawer.value ? "hidden md:flex" : ""
-      } absolute flex h-screen w-full flex-col  border-r  border-base-300 md:static md:max-w-xs`}
+      } absolute z-10 flex h-screen w-full  flex-col  border-r border-base-300 bg-base-100 md:static md:max-w-xs`}
     >
       <header class="z-10 flex items-center gap-2 px-4 py-2">
         <Search />
@@ -70,7 +70,7 @@ export const Sidebar = component$(({ drawer }: { drawer: Signal<boolean> }) => {
             width={24}
             height={24}
           />
-          <span class="text-sm font-medium">Qwikcity Contacts</span>
+          <span class="text-sm font-medium">Qwik Contacts</span>
         </Link>
         <button class="block md:hidden" onClick$={() => (drawer.value = false)}>
           <ChevronLeftIcon />

@@ -43,7 +43,7 @@ export default component$(() => {
           <MenuIcon />
         </button>
       </div>
-      <main class="flex-1">
+      <main class="flex-1 py-12">
         <Slot />
       </main>
     </div>

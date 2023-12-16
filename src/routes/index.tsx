@@ -14,14 +14,14 @@ export default component$(() => {
           height={64}
         />
 
-        <div class="text-gray-500">
+        <div class="text-base-content">
           <p>This is a demo for Qwikcity</p>
           <p>
             Check out the docs at{" "}
             <a
               href="https://qwik.builder.io/docs/"
               target="_blank"
-              class="text-blue-500"
+              class="link link-primary"
             >
               https://qwik.builder.io/docs/
             </a>
