@@ -41,6 +41,7 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
+    "@img/sharp-darwin-arm64": "^0.33.0",
     "@libsql/client": "0.4.0-pre.5",
     "@prisma/adapter-libsql": "^5.7.0",
     "@prisma/client": "^5.7.0"
