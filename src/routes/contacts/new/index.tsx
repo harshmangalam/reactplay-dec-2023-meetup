@@ -6,42 +6,52 @@ import { Textarea } from "~/components/ui/textarea";
 import { prisma } from "~/lib/prisma";
 
 export const useAddContact = routeAction$(
-  async (formData, { redirect }) => {
+  async (data, { redirect }) => {
     const contact = await prisma.contact.create({
-      data: formData,
+      data,
     });
 
     throw redirect(303, `/contacts/${contact.id}`);
   },
   zod$({
-    firstName: z.string().min(1, "First name is required"),
-    lastName: z.string(),
+    name: z.string().min(1, "Name is required"),
     twitter: z.string(),
-    avatarUrl: z.string(),
+    avatar: z.string(),
     notes: z.string(),
   }),
 );
 export default component$(() => {
+  const contactSig = useAddContact();
   return (
     <article class="card card-bordered mx-auto max-w-xl">
-      <Form class="card-body">
+      <Form class="card-body" action={contactSig}>
         <header class="card-title">New Contact</header>
         <div>
-          <TextInput name="name" id="name" label="Full Name" error={""} />
           <TextInput
+            name="name"
+            id="name"
+            label="Full Name"
+            error={contactSig.value?.fieldErrors.name}
+            value={contactSig.formData?.get("name")}
+          />
+          <TextInput
+            value={contactSig.formData?.get("twitter")}
             name="twitter"
             id="twitter"
             label="Twitter handler"
-            error={""}
           />
           <TextInput
-            name="twitter"
-            id="twitter"
-            label="Twitter handler"
-            error={""}
+            value={contactSig.formData?.get("avatar")}
+            name="avatar"
+            id="avatar"
+            label="Avatar URL"
           />
-          <TextInput name="avatar" id="avatar" label="Avatar URL" error={""} />
-          <Textarea name="notes" id="notes" label="Notes" error={""} />
+          <Textarea
+            value={contactSig.formData?.get("notes")?.toString() ?? ""}
+            name="notes"
+            id="notes"
+            label="Notes"
+          />
         </div>
 
         <footer class="card-actions">

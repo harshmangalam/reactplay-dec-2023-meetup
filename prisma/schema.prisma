@@ -13,10 +13,9 @@ datasource db {
 
 model Contact {
   id        String   @id @default(uuid())
-  firstName String
-  lastName  String?
+  name      String
   twitter   String?
-  avatarUrl String?
+  avatar    String?
   notes     String?
   favorite  Boolean  @default(false)
   createdAt DateTime @default(now())
