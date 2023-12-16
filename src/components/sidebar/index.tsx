@@ -66,7 +66,7 @@ export const Sidebar = component$(({ drawer }: { drawer: Signal<boolean> }) => {
             src="https://qwik.builder.io/logos/qwik-logo.svg"
             class="h-6 w-6 flex-none"
             loading="lazy"
-            alt=""
+            alt="logo"
           />
           <span class="text-sm font-medium">Qwikcity Contacts</span>
         </Link>

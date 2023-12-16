@@ -7,6 +7,9 @@ import {
   Link,
   routeLoader$,
 } from "@builder.io/qwik-city";
+import { Button } from "~/components/ui/button";
+import { TextInput } from "~/components/ui/text-input";
+import { Textarea } from "~/components/ui/textarea";
 import { prisma } from "~/lib/prisma";
 export const useGetContact = routeLoader$(async ({ params, error }) => {
   const contact = await prisma.contact.findUnique({
@@ -32,89 +35,58 @@ export const useEditContact = routeAction$(
     throw redirect(303, `/contacts/${contact.id}`);
   },
   zod$({
-    firstName: z.string().min(1, "First name is required"),
-    lastName: z.string(),
+    name: z.string().min(1, "First name is required"),
     twitter: z.string(),
-    avatarUrl: z.string(),
+    avatar: z.string(),
     notes: z.string(),
-  })
+  }),
 );
 export default component$(() => {
-  const action = useEditContact();
-  const contact = useGetContact();
-  const firstNameError = action.value?.fieldErrors?.firstName;
+  const editSig = useEditContact();
+  const contactSig = useGetContact();
 
   return (
-    <section class="min-h-screen grid place-items-center">
-      <Form
-        action={action}
-        class="grid grid-cols-2 gap-4 max-w-md w-full mx-auto px-4 md:px-0"
-      >
-        <section class="col-span-1 flex flex-col space-y-2">
-          <label for="firstName">First name</label>
-          <input
-            value={contact.value.firstName ?? ""}
-            type="text"
-            name="firstName"
-            id="firstName"
+    <article class="card card-bordered mx-auto max-w-xl">
+      <Form class="card-body" action={editSig}>
+        <header class="card-title">Edit {contactSig.value.name}</header>
+        <div>
+          <TextInput
+            name="name"
+            id="name"
+            label="Full Name"
+            error={editSig.value?.fieldErrors.name}
+            value={contactSig.value.name}
           />
-          {firstNameError?.length ? (
-            <span class="text-red-500 text-sm">{firstNameError[0]}</span>
-          ) : null}
-        </section>
-        <section class="col-span-1 flex flex-col space-y-2">
-          <label for="lastName">Last name</label>
-          <input
-            value={contact.value.lastName ?? ""}
-            type="text"
-            name="lastName"
-            id="lastName"
-          />
-        </section>
-        <section class="col-span-2 flex flex-col space-y-2">
-          <label for="twitter">Twitter</label>
-          <input
-            value={contact.value.twitter ?? ""}
-            type="text"
+          <TextInput
+            value={contactSig.value.twitter}
             name="twitter"
             id="twitter"
+            label="Twitter handler"
           />
-        </section>
-        <section class="col-span-2 flex flex-col space-y-2">
-          <label for="avatarUrl">Avatar URL</label>
-          <input
-            value={contact.value.avatarUrl ?? ""}
-            type="text"
-            name="avatarUrl"
-            id="avatarUrl"
+          <TextInput
+            value={contactSig.value.avatar}
+            name="avatar"
+            id="avatar"
+            label="Avatar URL"
           />
-        </section>
-        <section class="col-span-2 flex flex-col space-y-2">
-          <label for="notes">Notes</label>
-          <textarea
-            value={(contact.value.notes as string) ?? ""}
+          <Textarea
+            value={contactSig.value.notes ?? ""}
             name="notes"
             id="notes"
-            rows={5}
+            label="Notes"
+            rows={6}
           />
-        </section>
+        </div>
 
-        <section class="flex space-x-2 items-center">
-          <button
-            type="submit"
-            disabled={action.isRunning}
-            class="bg-white border text-blue-500 shadow px-2 py-2 rounded-md disabled:bg-gray-100 disabled:text-gray-500"
-          >
-            Save
-          </button>
-          <Link
-            href="/"
-            class="bg-white border text-red-500 shadow px-2 py-2 rounded-md"
-          >
+        <footer class="card-actions">
+          <Link class="btn btn-error" href={"/"}>
             Cancel
           </Link>
-        </section>
+          <Button type={"submit"} colorScheme={"btn-primary"}>
+            Edit
+          </Button>
+        </footer>
       </Form>
-    </section>
+    </article>
   );
 });
