@@ -3,13 +3,15 @@ import { type DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
   return (
-    <section class="min-h-screen grid place-items-center">
-      <div class="max-w-md w-full mx-auto text-center flex flex-col space-y-4">
+    <section class="grid min-h-screen place-items-center">
+      <div class="mx-auto flex w-full max-w-md flex-col space-y-4 text-center">
         <img
           src="https://qwik.builder.io/logos/qwik-logo.svg"
-          class="w-16 h-16 mx-auto"
+          class="mx-auto h-16 w-16"
           loading="lazy"
-          alt=""
+          alt="Logo"
+          width={64}
+          height={64}
         />
 
         <div class="text-gray-500">

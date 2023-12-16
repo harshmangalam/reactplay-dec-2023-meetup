@@ -14,9 +14,9 @@ export const Sidebar = component$(({ drawer }: { drawer: Signal<boolean> }) => {
         !drawer.value ? "hidden md:flex" : ""
       } absolute flex h-screen w-full flex-col  border-r  border-base-300 md:static md:max-w-xs`}
     >
-      <header class="z-10 flex items-center gap-2 px-2 py-2 md:px-6">
+      <header class="z-10 flex items-center gap-2 px-4 py-2">
         <Search />
-        <Link href="/contacts/new" class="btn">
+        <Link href="/contacts/new" class="btn btn-primary">
           New
         </Link>
       </header>
@@ -56,7 +56,7 @@ export const Sidebar = component$(({ drawer }: { drawer: Signal<boolean> }) => {
             ))}
           </ul>
         ) : (
-          <p class="italic text-gray-500">No Contacts</p>
+          <p class="px-4 py-2 italic text-base-content">No Contacts</p>
         )}
       </section>
 
@@ -67,6 +67,8 @@ export const Sidebar = component$(({ drawer }: { drawer: Signal<boolean> }) => {
             class="h-6 w-6 flex-none"
             loading="lazy"
             alt="logo"
+            width={24}
+            height={24}
           />
           <span class="text-sm font-medium">Qwikcity Contacts</span>
         </Link>
