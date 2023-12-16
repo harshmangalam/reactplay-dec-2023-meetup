@@ -6,37 +6,50 @@ import { useContacts } from "~/routes/layout";
 
 export const Sidebar = component$(({ drawer }: { drawer: Signal<boolean> }) => {
   const contacts = useContacts();
-  const loc = useLocation();
+  const locationSig = useLocation();
 
   return (
     <aside
       class={`${
         !drawer.value ? "hidden md:flex" : ""
-      } absolute flex h-screen w-full flex-col divide-y border-r bg-gray-100 md:static md:max-w-xs`}
+      } absolute flex h-screen w-full flex-col  border-r  border-base-300 md:static md:max-w-xs`}
     >
       <header class="z-10 flex items-center gap-2 px-2 py-2 md:px-6">
         <Search />
-        <a
-          href="/contacts/new"
-          class="rounded-md border bg-white px-2 py-2 text-blue-500 shadow"
-        >
+        <Link href="/contacts/new" class="btn">
           New
-        </a>
+        </Link>
       </header>
 
-      <section class="flex-1 overflow-y-auto px-2 py-4 md:px-6">
+      <section class="flex-1 overflow-y-auto">
         {contacts.value.length ? (
-          <ul class="flex h-full flex-col space-y-2">
+          <ul
+            class={"menu h-full w-full  rounded-none bg-base-200 p-0 px-4 py-2"}
+          >
             {contacts.value.map((contact) => (
-              <li key={contact.id}>
+              <li key={contact.id} class={["active"]}>
                 <Link
+                  class={[
+                    {
+                      active: locationSig.url.pathname.startsWith(
+                        `/contacts/${contact.id}`,
+                      ),
+                    },
+                  ]}
                   href={`/contacts/${contact.id}`}
-                  class={`block rounded-md px-2 py-2  ${
-                    loc.url.pathname === `/contacts/${contact.id}/`
-                      ? "bg-blue-500 text-white "
-                      : "hover:bg-gray-200"
-                  }`}
                 >
+                  {contact.avatar && (
+                    <div class="avatar">
+                      <div class="w-12 rounded-full">
+                        <img
+                          src={contact.avatar}
+                          alt={contact.name}
+                          width={48}
+                          height={48}
+                        />
+                      </div>
+                    </div>
+                  )}
                   {contact.name}
                 </Link>
               </li>

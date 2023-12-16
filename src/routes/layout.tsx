@@ -18,6 +18,7 @@ export const useContacts = routeLoader$(async ({ url }) => {
     select: {
       id: true,
       name: true,
+      avatar: true,
     },
   });
 
